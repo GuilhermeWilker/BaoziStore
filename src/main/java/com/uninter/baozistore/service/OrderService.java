@@ -1,0 +1,33 @@
+package com.uninter.baozistore.service;
+
+import com.uninter.baozistore.entity.Order;
+import com.uninter.baozistore.repository.OrderRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class OrderService {
+    @Autowired
+    private OrderRepository repository;
+
+    public Order create(Order obj)
+    {
+        return repository.save(obj);
+    }
+
+    public void delete(Long id){
+        repository.deleteById(id);
+    }
+
+    public Order getById(Long id){
+        Optional<Order> obj = repository.findById(id);
+        return obj.get();
+    }
+
+    public List<Order> list() {
+        return repository.findAll();
+    }
+}
