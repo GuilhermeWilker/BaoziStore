@@ -22,5 +22,7 @@ public class Product implements Serializable {
     private Long id;
     private String name;
     private BigDecimal price;
-    private Boolean in_stock;
+    
+    @Column(name = "in_stock")
+    private Boolean inStock;
 }
