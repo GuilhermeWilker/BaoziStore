@@ -1,5 +1,7 @@
 package com.uninter.baozistore.controller;
 
+import com.uninter.baozistore.dto.request.OrderRequestDTO;
+import com.uninter.baozistore.dto.response.OrderResponseDTO;
 import com.uninter.baozistore.entity.Order;
 import com.uninter.baozistore.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +19,8 @@ public class OrderController {
     private OrderService service;
 
     @PostMapping
-    public ResponseEntity<Order> create(@RequestBody Order obj) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(obj));
+    public ResponseEntity<OrderResponseDTO> create(@RequestBody OrderRequestDTO dto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(dto));
     }
 
     @GetMapping
@@ -29,11 +31,5 @@ public class OrderController {
     @GetMapping("/{id}")
     public ResponseEntity<Order> getById(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.getById(id));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        service.delete(id);
-        return ResponseEntity.noContent().build();
     }
 }

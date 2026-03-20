@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -17,6 +18,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "tb_costumers")
+@EntityListeners(AuditingEntityListener.class)
 public class Customer implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,4 +26,9 @@ public class Customer implements Serializable {
     private String name;
     @CreatedDate
     private LocalDate customer_since;
+
+    @PrePersist
+    public void prePersist() {
+        this.customer_since = LocalDate.now();
+    }
 }
